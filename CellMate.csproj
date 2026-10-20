@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <LangVersion>latest</LangVersion>
+    <AssemblyName>CellMate</AssemblyName>
+    <RootNamespace>CellMate</RootNamespace>
+    <Version>0.2.0</Version>
+    <ExcelDnaAddInName>CellMate</ExcelDnaAddInName>
+    <ExcelDnaCreate32BitAddIn>true</ExcelDnaCreate32BitAddIn>
+    <ExcelDnaCreate64BitAddIn>true</ExcelDnaCreate64BitAddIn>
+    <ExcelDnaPackXllSuffix>-packed</ExcelDnaPackXllSuffix>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Setup/**/*.cs" />
+    <EmbeddedResource Include="Assets/CellMate.ico" LogicalName="CellMate.ico" />
+    <PackageReference Include="ExcelDna.AddIn" Version="1.9.0" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,83 @@
+CellMate Binary Use and Source Viewing License 1.0
+
+Copyright (c) 2026 Arash Ghasemi Rad (ShatootSoft).
+All rights reserved except as expressly granted below.
+
+1. Scope and definitions
+
+"CellMate" means the original CellMate application, installer, source code,
+documentation, and artwork made available by the copyright holder.
+"Official Binaries" means unmodified executable releases distributed or
+expressly approved by the copyright holder. "Source" means the human-readable
+implementation, build scripts, and original design assets in this repository.
+Third-party components are excluded from this license as described in section 5.
+
+2. Free use of Official Binaries
+
+You may install and run Official Binaries, free of charge, for any purpose,
+including personal, educational, nonprofit, internal business, and commercial
+use, without a limit on users or computers. You may make backup copies and
+redistribute complete, unmodified Official Binaries, provided that this license
+and applicable third-party notices accompany them, attribution is retained,
+and you do not misrepresent their origin or claim endorsement.
+
+Your workbooks, data, and output remain yours. This license places no
+restrictions on the use or distribution of your own data or output merely
+because it was created or processed using CellMate.
+
+3. Source viewing only
+
+You may view and read the Source for inspection, understanding, and review.
+Temporary browser and cache copies strictly necessary for that viewing are
+permitted. The availability of the Source does not grant a general license
+to copy, download, modify, translate, adapt, build, compile, redistribute,
+publish, sublicense, incorporate, or create derivative works from it.
+Those activities require the copyright holder's prior written permission.
+No permission to reuse Source, original artwork, or implementation in another
+project or product is granted by this license.
+
+The copyright holder and persons separately authorized by the copyright
+holder may maintain, modify, build, test, and distribute CellMate under the
+terms of their separate authorization. Maintainer instructions in this
+repository describe procedures; they do not expand the rights granted here.
+
+4. Hosting-platform and mandatory rights
+
+Nothing in this license limits non-waivable rights under applicable law or
+rights necessarily granted under the applicable hosting platform's terms.
+In particular, publishing this repository publicly on GitHub permits viewing
+and platform-native forking to the extent required by GitHub's Terms of
+Service. This exception does not grant any additional permission to modify,
+reuse, or redistribute Source outside those platform rights.
+
+This is a source-available, proprietary license. It is not an open-source
+license and must not be described as one. Rights not expressly granted are
+reserved. Separate written permission may grant additional rights.
+
+5. Third-party components and trademarks
+
+Third-party components retain their own copyright and license terms. This
+license does not replace, restrict, or revoke rights granted by those terms.
+See THIRD_PARTY_NOTICES.md. No right to use the CellMate or ShatootSoft names
+or marks to imply endorsement is granted. Microsoft and Excel are trademarks
+of their respective owners; CellMate is an independent add-in.
+
+6. Disclaimer and limitation of liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CELLMATE IS PROVIDED
+"AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR CLAIMS, DAMAGES,
+DATA LOSS, OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE,
+WHETHER IN CONTRACT, TORT, OR OTHERWISE. MANDATORY CONSUMER RIGHTS AND
+OTHER RIGHTS THAT CANNOT LAWFULLY BE EXCLUDED ARE NOT AFFECTED.
+
+7. Termination
+
+Permission under this license terminates if you materially violate its
+terms. Upon termination, cease activities for which permission has terminated.
+Third-party licenses, mandatory legal rights, and hosting-platform rights
+continue according to their own terms.
+
+For additional source permissions, contact the copyright holder through
+the repository owner's GitHub profile or https://shatootsoft.com.

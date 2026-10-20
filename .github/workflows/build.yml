@@ -1,0 +1,33 @@
+name: Build and verify
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build installer and release package
+        shell: powershell
+        run: .\Build.ps1
+      - name: Verify installer in isolated folders and registry keys
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          [Reflection.Assembly]::LoadFrom((Resolve-Path '.\dist\CellMateSetup.exe').Path) | Out-Null
+          [CellMate.Setup.InstallerTests]::Run()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CellMate-Windows
+          path: dist/CellMate-Setup-*.zip
+          if-no-files-found: error
