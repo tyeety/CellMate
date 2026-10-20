@@ -9,6 +9,7 @@ namespace CellMate
     {
         internal static Preferences Preferences = Preferences.Defaults();
         private static readonly List<string> BoundKeys = new List<string>();
+        private static EditShortcut editShortcut;
         internal static dynamic Application => ExcelDnaUtil.Application;
 
         public void AutoOpen()
@@ -18,13 +19,22 @@ namespace CellMate
             catch (Exception ex) { warning = "Could not read settings. Default shortcuts will be used.\n" + ex.Message; }
             ExcelAsyncUtil.QueueAsMacro(() =>
             {
-                try { Bind(Preferences); if (warning != null) ShowError(warning); }
+                try
+                {
+                    Bind(Preferences);
+                    editShortcut?.Dispose();
+                    editShortcut = new EditShortcut();
+                    editShortcut.Configure(Preferences);
+                    if (warning != null) ShowError(warning);
+                }
                 catch (Exception ex) { ShowError("Could not activate shortcuts.\n" + ex.Message); }
             });
         }
 
         public void AutoClose()
         {
+            editShortcut?.Dispose();
+            editShortcut = null;
             try { Unbind(); } catch { /* Excel may already be shutting down. */ }
             Commands.ClearUndo();
         }
@@ -45,6 +55,7 @@ namespace CellMate
                 Application.OnKey(key, "CellMate_" + binding.Command);
                 BoundKeys.Add(key);
             }
+            editShortcut?.Configure(preferences);
         }
 
         internal static void SavePreferences(Preferences next)

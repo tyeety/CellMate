@@ -18,7 +18,7 @@ namespace CellMate
         public static readonly Color Border = ColorTranslator.FromHtml("#D2C1D5");
         public static readonly Color Tint = ColorTranslator.FromHtml("#F4E4F5");
         public static readonly Color Error = ColorTranslator.FromHtml("#BA1A1A");
-        public const string Version = "0.2.0";
+        public const string Version = "0.2.1";
 
         public static GraphicsPath Round(RectangleF rect, float radius)
         {

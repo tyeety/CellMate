@@ -8,6 +8,20 @@ move completed entries into a dated release section when publishing that version
 
 No changes recorded yet.
 
+## [0.2.1] - 2026-10-20
+
+### Fixed
+
+- The configurable duplicate shortcut now works inside the cell editor and Formula Bar, where Excel's `Application.OnKey` binding alone was not handled.
+- Selected text is duplicated immediately after itself without replacing surrounding text, committing the edit, or inserting rows. Unicode text and emoji are supported without using the clipboard.
+- With no selected text, the edit is committed through Excel and the original selected rows are duplicated, preserving the source selection when Enter moves to another cell.
+- The edit handler follows the duplicate shortcut's configured binding and disabled state, passes unrelated input through, suppresses held-key repeat for an edit operation, and unhooks when the add-in unloads.
+
+### Verification
+
+- Real keyboard checks in an isolated Excel workbook covered selected cell text, Arabic and emoji, a middle selection in the Formula Bar, no-selection row duplication, and immediate row undo.
+- Interactive verification was performed with the installed 64-bit Excel; no interactive 32-bit Office claim is made.
+
 ## [0.2.0] - 2026-10-20
 
 ### Added
@@ -67,5 +81,6 @@ No changes recorded yet.
 5. Commit, tag `vMAJOR.MINOR.PATCH`, and publish a GitHub Release containing the official installer package and its matching license/notices.
 6. Record relevant verification limits in the release notes. Never attach a binary built from a different source revision.
 
-[Unreleased]: https://github.com/tyeety/CellMate/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/tyeety/CellMate/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/tyeety/CellMate/releases/tag/v0.2.1
 [0.2.0]: https://github.com/tyeety/CellMate/releases/tag/v0.2.0

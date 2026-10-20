@@ -17,7 +17,7 @@ Excel for the web, macOS Excel, and native ARM64 Excel are not supported. Excel 
 
 ## Install
 
-1. Open [Releases](https://github.com/tyeety/CellMate/releases/latest) and download `CellMate-Setup-0.2.0.zip` (or the package for a newer release).
+1. Open [Releases](https://github.com/tyeety/CellMate/releases/latest) and download `CellMate-Setup-0.2.1.zip` (or the package for a newer release).
 2. Extract the archive and run `CellMateSetup.exe`.
 3. Click **Install CellMate**. If Excel is open, save your work and close all Excel windows. Setup waits and continues automatically; it never closes your workbooks for you.
 4. When **Installed successfully** appears, click **Open Excel**.
@@ -36,9 +36,18 @@ The installer does not change global Office security settings or save your workb
 | `Ctrl+Alt+O` | AutoFit selected columns | AutoFit Columns |
 | `Ctrl+Alt+K` | Open shortcut settings | Settings |
 
-Shortcuts apply across the open workbooks in the Excel instance where CellMate is loaded. Finish editing a cell before using a command. An enabled shortcut overrides Excel's normal action and may conflict with another add-in.
+Shortcuts apply across the open workbooks in the Excel instance where CellMate is loaded. The duplicate shortcut also works while editing a cell or the Formula Bar, as described below; finish cell editing before using the other commands. An enabled shortcut overrides Excel's normal action and may conflict with another add-in.
 
 ## Duplicate rows
+
+### While editing a cell or the Formula Bar
+
+Press the configured duplicate shortcut (default `Ctrl+D`):
+
+- If text is selected, CellMate inserts a copy immediately after that selection. Surrounding text stays intact, no rows are inserted, and editing remains open. For example, selecting `MIDDLE ` in `left MIDDLE right` produces `left MIDDLE MIDDLE right`.
+- If no text is selected, CellMate commits the edit through Excel and duplicates the original selected rows, even if Excel moves to another cell after Enter. Normal row-duplication limits still apply. If Excel cannot accept the edit, resolve or cancel its validation message before trying again.
+
+The same shortcut customization and disabled state apply in edit mode. The handler is scoped to the current Excel UI thread and its cell/Formula Bar editors. It does not use a global keyboard hook, record keystrokes, or change the clipboard.
 
 ### One row
 
@@ -117,7 +126,7 @@ Your shortcut settings remain in `%APPDATA%\CellMate\settings.xml` so reinstalli
 
 | Location | Purpose |
 |---|---|
-| `%LOCALAPPDATA%\CellMate\0.2.0\CellMate.xll` | Installed add-in; newer releases use their own version directory |
+| `%LOCALAPPDATA%\CellMate\0.2.1\CellMate.xll` | Installed add-in; newer releases use their own version directory |
 | `%LOCALAPPDATA%\CellMate\CellMateSetup.exe` | Installed uninstaller |
 | `%LOCALAPPDATA%\CellMate\LICENSE` | CellMate license |
 | `%LOCALAPPDATA%\CellMate\THIRD_PARTY_NOTICES.md` | Third-party terms |
@@ -133,7 +142,7 @@ Startup registration is stored under the current user's Office 16.0 Excel Option
 | Setup keeps waiting for Excel | Save and close every Excel instance. If no windows remain, inspect Excel processes through your usual Windows tools; do not end a process containing unsaved work. |
 | CellMate tab is missing | Restart Excel normally and open a workbook. Check **File > Options > Add-ins**, including disabled items, or reinstall using Setup. Follow any organization policy that blocks XLL add-ins. |
 | Ctrl+D performs Fill Down | Open CellMate Settings and check that Duplicate selected rows is enabled. Another add-in may have reassigned the key. |
-| Shortcut does nothing while typing | Finish or cancel editing the cell, then use the command. Check for duplicate mappings in other tools. |
+| Duplicate shortcut does nothing while editing | Update to 0.2.1 or later and verify the binding in CellMate Settings. It only intercepts the cell and Formula Bar editors, not search boxes or dialogs. Other commands still require finishing the edit. |
 | Duplication is blocked | Check the limits above: filters, Excel Tables, merges, grouped/protected sheets, row count, and space. |
 | Paste Values asks for copied cells | Copy cells in Excel with Ctrl+C first; do not cut them or use a non-Excel clipboard source. |
 | Settings cannot be read | Close Excel, back up and rename the settings XML, then reopen Excel to use defaults. The app also falls back to defaults when loading invalid preferences. |
@@ -144,6 +153,8 @@ Report the CellMate version, Excel version and bitness, Windows version, the mes
 ## Verification status for 0.2.0
 
 The add-in's original row operations were exercised in real Excel, and installer checks cover architecture payloads, migration, preserving unrelated options, repair, injected-failure rollback, and removal. These checks do not establish compatibility with every Office configuration. Final visual acceptance of the 0.2.0 installer/settings was interrupted and is not claimed.
+
+For 0.2.1, real keyboard checks in an isolated Excel workbook covered selected text, Arabic text and emoji, a middle selection in the Formula Bar, committing an edit before duplicating its original row, and Ctrl+Z after that row duplication. Other Office versions and 32-bit Excel were not exercised interactively.
 
 ## Source and maintainer instructions
 
@@ -157,7 +168,7 @@ Use Windows with a .NET SDK capable of building `net48` (this project is verifie
 .\Build.ps1
 ```
 
-The script builds both packed XLL architectures, builds Setup with the payloads embedded, and packages the release into `dist/CellMate-Setup-0.2.0.zip`. Build outputs and personal settings are excluded from Git.
+The script builds both packed XLL architectures, builds Setup with the payloads embedded, and packages the release into `dist/CellMate-Setup-0.2.1.zip`. Build outputs and personal settings are excluded from Git.
 
 `Install.ps1` is a convenience launcher for the built graphical installer; `Install.ps1 -Uninstall` opens its removal window. End users should download the official binary release instead of building source.
 
@@ -179,6 +190,7 @@ The checks use disposable temporary folders and isolated registry keys, not actu
 | `Commands.cs` | Excel commands, row duplication, immediate undo |
 | `Shortcuts.cs` | Shortcut validation, defaults, preference storage |
 | `AddIn.cs` | Add-in lifecycle and shortcut binding |
+| `EditShortcut.cs` | Excel-thread edit-mode duplicate shortcut and deferred row commit |
 | `Ribbon.cs` | Ribbon callbacks; no Duplicate Row button |
 | `SettingsForm.cs` | English shortcut settings window |
 | `Theme.cs`, `Brand.cs`, `Assets/CellMate.ico` | Shared ShatootSoft-inspired design and icons |
